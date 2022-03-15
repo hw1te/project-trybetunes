@@ -15,10 +15,10 @@ class MusicCard extends React.Component {
   }
 
   checkedFavoriteSong = async (target) => {
-    this.setState({ loading: true });
+    this.setState({ loading: true, checked: true });
     const fetchSong = getMusics(target.id);
     await addSong(fetchSong[0]);
-    this.setState({ loading: false, checked: true });
+    this.setState({ loading: false });
     console.log(addSong(fetchSong[0]));
   };
 

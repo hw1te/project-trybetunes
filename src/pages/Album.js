@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
-/* import { getFavoriteSongs } from '../services/favoriteSongsAPI'; */
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   constructor() {
@@ -13,11 +13,13 @@ class Album extends Component {
       songs: [],
       artist: '',
       albumName: '',
+      /* favorites: [], */
     };
   }
 
   componentDidMount() {
     this.getMusicApi();
+    this.getFavorite();
   }
 
   getMusicApi = async () => {
@@ -31,26 +33,29 @@ class Album extends Component {
     });
   }
 
-  /*   getFavorite = async () => {
-    this.setState({ loading: })
-  } */
+    getFavorite = async () => {
+      /* this.setState({ loading: true }); */
+      const getFavorites = getFavoriteSongs();
+      /*  this.setState({ loading: false, favorites: getFavorites }); */
+      console.log(getFavorites);
+    }
 
-  render() {
-    const { artist, albumName, songs } = this.state;
-    return (
-      <div data-testid="page-album">
-        <Header />
-        <span data-testid="album-name">{ albumName }</span>
-        <p data-testid="artist-name">{ artist }</p>
-        {songs.map((song) => (
-          <MusicCard
-            key={ song.trackId }
-            data={ song }
-          />
-        ))}
-      </div>
-    );
-  }
+    render() {
+      const { artist, albumName, songs } = this.state;
+      return (
+        <div data-testid="page-album">
+          <Header />
+          <span data-testid="album-name">{ albumName }</span>
+          <p data-testid="artist-name">{ artist }</p>
+          {songs.map((song) => (
+            <MusicCard
+              key={ song.trackId }
+              data={ song }
+            />
+          ))}
+        </div>
+      );
+    }
 }
 
 Album.propTypes = {
